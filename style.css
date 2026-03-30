@@ -771,3 +771,50 @@ nav.scrolled a {
     color: var(--purple);
     pointer-events: none;
 }
+
+/* --- RESPONSIVE MOBILE FIXES --- */
+@media (max-width: 768px) {
+    /* Stack the Navigation */
+    nav {
+        flex-direction: column;
+        padding: 15px 20px;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+        gap: 10px;
+    }
+
+    nav ul li {
+        margin-left: 0; /* Remove that desktop spacing */
+    }
+
+    /* Shrink the Hero Text so it fits */
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    /* About/Founders Section: Stack the columns */
+    .about-container, .founders-grid {
+        grid-template-columns: 1fr; /* Force 1 column */
+        padding: 20px;
+    }
+
+    /* Shop Grid: Ensure cards don't get too skinny */
+    .product-grid {
+        grid-template-columns: 1fr; /* One product at a time on small phones */
+        padding: 20px;
+    }
+
+    /* Modal: Make it fill more of the screen on mobile */
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+    }
+}
