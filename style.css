@@ -1,0 +1,773 @@
+:root {
+    --purple: #D6BCFA;
+    --pink: #FBB6CE;
+    --blue: #BEE3F8;
+    --white: #ffffff;
+    --text: #4A5568;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    scroll-behavior: smooth;
+}
+
+/* Background Video Styling */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    /* Softens the video */
+    backdrop-filter: blur(2px);
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--purple);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    position: relative;
+    /* Essential for positioning the line */
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+/* Base Navigation Styles */
+nav {
+    position: fixed;
+    /* Keep it at the top */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 50px;
+    background: transparent;
+    /* Start invisible or semi-transparent */
+    transition: all 0.4s ease-in-out;
+    /* Smooth transition for all properties */
+    box-sizing: border-box;
+}
+
+/* Scrolled State - Triggered by JS */
+nav.scrolled {
+    background-color: var(--purple);
+    /* Your Pastel Purple */
+    padding: 15px 50px;
+    /* Slightly shrink the height for a sleek look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Handle Text Color Changes */
+nav.scrolled .logo,
+nav.scrolled ul li a {
+    color: var(--white);
+}
+
+/* Adjust the hover line for the scrolled state */
+nav.scrolled ul li a::after {
+    background-color: var(--white);
+    /* Line turns white on the purple background */
+}
+
+/* Ensure the Hero section doesn't hide behind the fixed nav */
+.hero {
+    padding-top: 80px;
+}
+
+/* The "Line" itself */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    /* Thickness of the line */
+    bottom: 0;
+    left: 0;
+    background-color: var(--pink);
+    /* You can also use var(--purple) */
+    transform: scaleX(0);
+    /* Start at zero width */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+/* The Hover State */
+nav ul li a:hover {
+    color: var(--pink);
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1);
+    /* Expand to full width */
+    transform-origin: bottom left;
+}
+
+/* Hero Section */
+.hero {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+}
+
+h1 {
+    color: var(--purple);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    background-color: var(--pink);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cta-btn {
+    background-color: var(--pink);
+    color: white;
+    border: none;
+    padding: 18px 35px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    /* The "Bubbly" Transition */
+    transition:
+        background-color 0.4s ease,
+        transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s ease;
+
+    box-shadow: 0 4px 15px rgba(251, 182, 206, 0.3);
+}
+
+.cta-btn:hover {
+    /* Color change to Pastel Blue or Purple */
+    background-color: var(--blue);
+
+    /* The "Pop" effect */
+    transform: scale(1.1);
+
+    /* Soft glow effect */
+    box-shadow: 0 8px 25px rgba(190, 227, 248, 0.6);
+    color: var(--text);
+    /* Darker text for better contrast on light blue */
+}
+
+/* Optional: Adding a light "shimmer" bubble inside */
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.6s ease-out;
+    z-index: -1;
+}
+
+.cta-btn:hover::before {
+    transform: scale(1);
+}
+
+/* About Section Layout */
+.about-section {
+    padding: 100px 50px;
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-container {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-text h2 {
+    color: var(--purple);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.about-text p {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+/* Scroll Animation Classes */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.founders-section {
+    padding: 100px 20px;
+    background-color: #fcfaff;
+    /* Very light lavender tint */
+    text-align: center;
+}
+
+.section-title span {
+    color: var(--pink);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+.section-title h2 {
+    color: var(--purple);
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+.founders-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.founder-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 30px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+}
+
+.founder-card:hover {
+    transform: translateY(-10px);
+}
+
+/* The Bubbly Image Container */
+.founder-image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.img-blob {
+    width: 100%;
+    height: 100%;
+    background-color: var(--blue);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    /* Organic bubble shape */
+    animation: morph 8s ease-in-out infinite;
+}
+
+.img-blob.pink {
+    background-color: var(--pink);
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+}
+
+@keyframes morph {
+    0% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+}
+
+.founder-card h3 {
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.role {
+    color: var(--purple);
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #718096;
+}
+
+/* Shop Header */
+.shop-header {
+    text-align: center;
+    padding: 120px 20px 60px;
+    background: linear-gradient(to bottom, var(--purple), var(--white));
+    color: white;
+}
+
+/* Filter Bar */
+.filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    border: 2px solid var(--purple);
+    background: transparent;
+    color: var(--purple);
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--purple);
+    color: white;
+}
+
+/* Product Cards */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 50px 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: white;
+    padding: 20px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(214, 188, 250, 0.4);
+}
+
+.product-image {
+    background: #f8f9fa;
+    height: 200px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--pink);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.price {
+    color: var(--pink);
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.add-to-cart {
+    background: var(--blue);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-to-cart:hover {
+    background: var(--pink);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Donate Layout */
+.donate-container {
+    max-width: 1100px;
+    margin: -50px auto 100px;
+    padding: 0 20px;
+}
+
+.donate-header {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    padding: 150px 20px 100px;
+    text-align: center;
+    color: white;
+    border-radius: 0 0 50px 50px;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.impact-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.impact-card.featured {
+    border-color: var(--pink);
+    transform: scale(1.05);
+    position: relative;
+}
+
+.impact-card .badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--pink);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.impact-card:hover {
+    transform: translateY(-10px);
+}
+
+.impact-card h3 {
+    font-size: 2.5rem;
+    color: var(--purple);
+    margin: 15px 0;
+}
+
+.donate-select {
+    margin-top: 20px;
+    background: var(--blue);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Custom Input Styling */
+.custom-donate {
+    margin-top: 60px;
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.input-group span {
+    font-size: 2rem;
+    color: var(--purple);
+    margin-right: 10px;
+}
+
+#custom-amount {
+    border: 2px solid var(--blue);
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 1.5rem;
+    width: 150px;
+    text-align: center;
+    outline: none;
+}
+
+.check1 {
+    color: var(--white);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.fpic {
+    width: auto;
+    height: 150px;
+    background-color: var(--blue);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    /* Organic bubble shape */
+    animation: morph 8s ease-in-out infinite;
+    margin: 0 auto;
+}
+
+.about-pic {
+    width: auto;
+    height: 350px;
+    background-color: var(--pink);
+    box-shadow: #BEE3F8 0px 10px 30px;
+
+}
+
+:root {
+    --purple: #D6BCFA;
+    --pink: #FBB6CE;
+    --blue: #BEE3F8;
+    --white: #ffffff;
+    --text: #4A5568;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff;
+    margin: 0;
+}
+
+/* Nav Adjustment */
+nav.scrolled {
+    background: var(--purple);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav.scrolled ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav.scrolled a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Shop Header */
+.shop-header {
+    padding: 120px 20px 50px;
+    text-align: center;
+    background: linear-gradient(to bottom, var(--purple), #fff);
+}
+
+/* Grid & Cards */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+.product-pic {
+    width: 100%;
+    border-radius: 15px;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.variant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.variant-item {
+    border: 2px solid var(--blue);
+    padding: 15px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+/* Search Bar Styling */
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#shop-search {
+    width: 100%;
+    padding: 15px 25px;
+    padding-right: 50px;
+    border-radius: 50px;
+    border: 2px solid var(--blue);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    color: var(--text);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+}
+
+#shop-search:focus {
+    border-color: var(--purple);
+    box-shadow: 0 8px 20px rgba(214, 188, 250, 0.3);
+}
+
+.search-icon {
+    position: absolute;
+    right: 20px;
+    font-size: 1.2rem;
+    color: var(--purple);
+    pointer-events: none;
+}

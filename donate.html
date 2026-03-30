@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate | Stitch Paws</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="donate-page">
+
+    <nav class="scrolled">
+        <div class="logo">Stitch Paws</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="donate.html" class="active">Donate</a></li>
+        </ul>
+    </nav>
+
+    <header class="donate-header">
+        <h1 class="check1">Support the Paws</h1>
+        <p>Your generosity keeps our hooks moving and shelter animals warm.</p>
+    </header>
+
+    <main class="donate-container">
+        <div class="impact-grid">
+            <div class="impact-card" data-amount="1000">
+                <div class="icon">🧶</div>
+                <h3>Rs.1000</h3>
+                <p>Provides yarn for <strong>one</strong> cozy shelter blanket.</p>
+                <button class="donate-select">Select</button>
+            </div>
+
+            <div class="impact-card featured" data-amount="2500">
+                <div class="badge">Most Popular</div>
+                <div class="icon">🐶</div>
+                <h3>Rs.2500</h3>
+                <p>Covers a full "Comfort Kit".</p>
+                <button class="donate-select">Select</button>
+            </div>
+
+            <div class="impact-card" data-amount="15000">
+                <div class="icon">🏠</div>
+                <h3>Rs.15000</h3>
+                <p>Warms an entire litter of kittens with custom nesting pads.</p>
+                <button class="donate-select">Select</button>
+            </div>
+        </div>
+
+        <div class="custom-donate">
+            <h3>Or enter a custom amount:</h3>
+            <div class="input-group">
+                <span>Rs.</span>
+                <input type="number" id="custom-amount" placeholder="0.00">
+            </div>
+            <button class="cta-btn bubbly">Complete Donation</button>
+        </div>
+    </main>
+
+    <script src="donate.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Stitch Paws</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="shop-page">
+
+    <nav class="scrolled">
+        <div class="logo">Stitch Paws</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+            <li><a href="donate.html">Donate</a></li>
+        </ul>
+    </nav>
+
+    <header class="shop-header">
+        <h1>Handmade with Love</h1>
+        <p>100% of proceeds go toward medical supplies for local animal shelters.</p>
+    </header>
+    <main class="shop-container">
+        <div class="search-container">
+            <input type="text" id="shop-search" placeholder="Search for items (e.g. 'Keyring', 'Pink')...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All Items</button>
+            <button class="filter-btn" data-filter="toy">Toys</button>
+            <button class="filter-btn" data-filter="headwear">Headwear</button>
+        </div>
+
+            <div class="product-grid">
+                <div class="product-card" data-category="all">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-image">
+                        <img src="bag.jpg" alt="Mini Bag" class="product-pic">
+                    </div>
+                    <h3>Mini Bag</h3>
+                    <p class="price">Rs.350</p>
+                    <button class="add-to-cart">Add to Basket</button>
+                </div>
+
+                <div class="product-card" data-category="toy">
+                    <div class="product-image">
+                        <img src="keyring.jpg" alt="keyring" class="product-pic">
+                    </div>
+                    <h3>Exclusive Keyring</h3>
+                    <p class="price">Rs.150</p>
+                    <button class="add-to-cart">Add to Basket</button>
+                </div>
+
+                <div class="product-card" data-category="headwear">
+                    <div class="product-image">
+                        <img src="bandana.jpg" alt="bandana" class="product-pic">
+                    </div>
+                    <h3>Bandana</h3>
+                    <p class="price">Rs.250</p>
+                    <button class="add-to-cart">Add to Basket</button>
+                </div>
+
+                <div class="product-card" data-category="toy">
+                    <div class="product-image">
+                        <img src="Plushie.jpg" alt="Plushie" class="product-pic">
+                    </div>
+                    <h3>Plushie</h3>
+                    <p class="price">Rs.350</p>
+                    <button class="add-to-cart">Add to Basket</button>
+                </div>
+            </div>
+        </main>
+
+        <div id="product-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-body">
+                    <h2 id="modal-title">Showcase</h2>
+                    <p>Pick your favorite variation:</p>
+                    <div id="variant-grid" class="variant-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="shop.js"></script>
+</body>
+
+</html>
