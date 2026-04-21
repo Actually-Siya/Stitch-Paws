@@ -1,64 +1,51 @@
+const _supabase = supabase.createClient('https://ytxdjpxjwcpabfdukhtt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0eGRqcHhqd2NwYWJmZHVraHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjAyNzYsImV4cCI6MjA5MTI5NjI3Nn0.0s_jqP1PNqw2Dbp9yh2kE5NJZQL3GEey4UUtQaw0PWE');
 
-const _supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
-
-
-let selectedProduct = { name: "", price: "" };
-
-document.addEventListener('click', function (e) {
+document.addEventListener('click', async function (e) {
+    
     if (e.target.classList.contains('filter-btn')) {
-        const filter = e.target.getAttribute('data-filter');
-        
+        const filter = e.target.dataset.filter;
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
         e.target.classList.add('active');
 
         document.querySelectorAll('.product-card').forEach(card => {
-            if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
+            card.style.display = (filter === 'all' || card.dataset.category === filter) ? "block" : "none";
         });
     }
 
     if (e.target.innerText === "BUY NOW") {
         const card = e.target.closest('.product-card');
-        const pName = card.querySelector('h3').innerText;
-        const pPrice = card.querySelector('.price').innerText;
+        const name = card.querySelector('h3').innerText;
+        const price = card.querySelector('.price').innerText;
+
+        window.currentOrder = { name, price }; // Save to window memory
         
-        selectedProduct = { name: pName, price: pPrice };
-        
-        document.getElementById('modalProductName').innerText = pName + " - " + pPrice;
+        document.getElementById('modalProductName').innerText = name + " (" + price + ")";
         document.getElementById('orderModal').style.display = "block";
     }
 
     if (e.target.classList.contains('close') || e.target.id === 'orderModal') {
         document.getElementById('orderModal').style.display = "none";
     }
-});
+    
+    if (e.target.id === 'submitOrder') {
+        const cName = document.getElementById('custName').value;
+        const cPhone = document.getElementById('custPhone').value;
 
-document.getElementById('submitOrder').addEventListener('click', async () => {
-    const name = document.getElementById('custName').value;
-    const phone = document.getElementById('custPhone').value;
+        if (!cName || !cPhone) return alert("Fill in details!");
 
-    if (!name || !phone) {
-        alert("Please fill in your details!");
-        return;
-    }
+        const { error } = await _supabase.from('orders').insert([{
+            product_name: window.currentOrder.name,
+            price: parseFloat(window.currentOrder.price.replace(/[^\d.]/g, '')),
+            Customer_name: cName,
+            Phone_Number: cPhone
+        }]);
 
-    const { error } = await _supabase.from('orders').insert([
-        { 
-            product_name: selectedProduct.name, 
-            price: parseFloat(selectedProduct.price.replace(/[^\d.]/g, '')), 
-            Customer_name: name, 
-            Phone_Number: phone 
+        if (!error) {
+            alert("Success!");
+            window.open(`https://wa.me/97798XXXXXXXX?text=Order:${window.currentOrder.name}`);
+            document.getElementById('orderModal').style.display = "none";
+        } else {
+            alert("DB Error: " + error.message);
         }
-    ]);
-
-    if (!error) {
-        alert("Order Recorded!");
-        window.open(`https://wa.me/9779823080682?text=I've ordered ${selectedProduct.name}`);
-        document.getElementById('orderModal').style.display = "none";
-    } else {
-        alert("Error: " + error.message);
     }
 });
