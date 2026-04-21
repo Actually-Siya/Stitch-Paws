@@ -7,7 +7,6 @@ window.addEventListener('scroll', function() {
         nav.style.boxShadow = "none";
         nav.style.padding = "20px 50px";
     }
-    // Function to handle the scroll reveal
 const revealSection = () => {
     const reveals = document.querySelectorAll('.reveal');
 
@@ -17,7 +16,7 @@ const revealSection = () => {
                 entry.target.classList.add('active');
             }
         });
-    }, { threshold: 0.2 }); // Trigger when 20% of the element is visible
+    }, { threshold: 0.2 }); 
 
     reveals.forEach(reveal => {
         observer.observe(reveal);
@@ -25,7 +24,6 @@ const revealSection = () => {
     window.addEventListener('scroll', function() {
     const nav = document.querySelector('nav');
     
-    // Check if the page has been scrolled more than 50px
     if (window.scrollY > 50) {
         nav.classList.add('scrolled');
     } else {
@@ -34,6 +32,5 @@ const revealSection = () => {
 });
 };
 
-// Run the function
 revealSection();
 });
