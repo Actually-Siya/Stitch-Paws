@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donate | Stitch Paws</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="donate-page">
@@ -53,10 +54,25 @@
                 <span>Rs.</span>
                 <input type="number" id="custom-amount" placeholder="0.00">
             </div>
-            <button class="cta-btn bubbly">Complete Donation</button>
+            <button id="complete-btn" class="cta-btn bubbly">Complete Donation</button>
         </div>
     </main>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2 style="color: #ffb7c5;">Scan to Donate 🐾</h2>
+            <p id="donate-summary" style="margin-bottom: 10px; font-weight: bold;"></p>
+            
+            <img src="images/qr-code.jpg" alt="eSewa QR" style="width: 200px; margin: 10px auto; display: block; border: 2px solid #ffb7c5; border-radius: 10px;">
+            
+            <p style="font-size: 0.8rem; color: #666;">Scan via eSewa/Khalti</p>
+            
+            <input type="text" id="donorName" placeholder="Enter Your Name" style="width: 80%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ddd;">
+            
+            <button id="finalDonateBtn" class="add-to-cart" style="width: 80%;">I've Paid - Message WhatsApp</button>
+        </div>
+    </div>
 
     <script src="donate.js"></script>
 </body>
