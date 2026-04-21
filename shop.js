@@ -1,59 +1,64 @@
 
-const _supabase = supabase.createClient('https://ytxdjpxjwcpabfdukhtt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0eGRqcHhqd2NwYWJmZHVraHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjAyNzYsImV4cCI6MjA5MTI5NjI3Nn0.0s_jqP1PNqw2Dbp9yh2kE5NJZQL3GEey4UUtQaw0PWE');
+const _supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
 
-function handleBuyNow(pName, pPrice) {
-    console.log("Button clicked for:", pName);
-    const modal = document.getElementById('orderModal');
-    document.getElementById('modalProductName').innerText = pName + " (" + pPrice + ")";
-    modal.style.display = "block";
-    
-    
-    window.currentOrder = { name: pName, price: pPrice };
-}
 
-const submitBtn = document.getElementById('submitOrder');
-if (submitBtn) {
-    submitBtn.onclick = async function() {
-        const cName = document.getElementById('custName').value;
-        const cPhone = document.getElementById('custPhone').value;
-
-        if (!cName || !cPhone) {
-            alert("Please fill in your details!");
-            return;
-        }
-
-        const numericPrice = parseFloat(window.currentOrder.price.replace(/[^\d.]/g, ''));
-
-        const { error } = await _supabase.from('orders').insert([
-            { 
-                product_name: window.currentOrder.name, 
-                price: numericPrice, 
-                Customer_name: cName, 
-                Phone_Number: cPhone 
-            }
-        ]);
-
-        if (!error) {
-            alert("Order Success!");
-            window.open(`https://wa.me/97798XXXXXXXX?text=Order:${window.currentOrder.name}`);
-            document.getElementById('orderModal').style.display = "none";
-        } else {
-            console.error(error);
-            alert("Database Error: " + error.message);
-        }
-    };
-}
-
-const closeBtn = document.querySelector('.close');
-if (closeBtn) {
-    closeBtn.onclick = () => { document.getElementById('orderModal').style.display = "none"; };
-}
+let selectedProduct = { name: "", price: "" };
 
 document.addEventListener('click', function (e) {
-    if (e.target.innerText && e.target.innerText.includes("BUY NOW")) {
+    if (e.target.classList.contains('filter-btn')) {
+        const filter = e.target.getAttribute('data-filter');
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    if (e.target.innerText === "BUY NOW") {
         const card = e.target.closest('.product-card');
         const pName = card.querySelector('h3').innerText;
         const pPrice = card.querySelector('.price').innerText;
-        handleBuyNow(pName, pPrice);
+        
+        selectedProduct = { name: pName, price: pPrice };
+        
+        document.getElementById('modalProductName').innerText = pName + " - " + pPrice;
+        document.getElementById('orderModal').style.display = "block";
+    }
+
+    if (e.target.classList.contains('close') || e.target.id === 'orderModal') {
+        document.getElementById('orderModal').style.display = "none";
+    }
+});
+
+document.getElementById('submitOrder').addEventListener('click', async () => {
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+
+    if (!name || !phone) {
+        alert("Please fill in your details!");
+        return;
+    }
+
+    const { error } = await _supabase.from('orders').insert([
+        { 
+            product_name: selectedProduct.name, 
+            price: parseFloat(selectedProduct.price.replace(/[^\d.]/g, '')), 
+            Customer_name: name, 
+            Phone_Number: phone 
+        }
+    ]);
+
+    if (!error) {
+        alert("Order Recorded!");
+        window.open(`https://wa.me/9779823080682?text=I've ordered ${selectedProduct.name}`);
+        document.getElementById('orderModal').style.display = "none";
+    } else {
+        alert("Error: " + error.message);
     }
 });
